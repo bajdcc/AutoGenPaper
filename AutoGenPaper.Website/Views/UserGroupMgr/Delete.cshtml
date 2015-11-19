@@ -1,0 +1,19 @@
+﻿@model AutoGenPaper.Common.UserGroup
+
+@{
+    ViewBag.Title = "删除";
+}
+
+<hgroup class="title">@ViewBag.Title</hgroup>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>UserGroup</legend>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.AGPActionLink("返回", "Index")
+    </p>
+}

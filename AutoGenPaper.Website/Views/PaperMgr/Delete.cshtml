@@ -1,0 +1,38 @@
+﻿@model AutoGenPaper.Common.Paper
+
+@{
+    ViewBag.Title = "删除试卷";
+}
+
+<hgroup class="title">@ViewBag.Title</hgroup>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Paper</legend>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Points)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Points)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Difficulty)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Difficulty)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Label)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Label)
+    </div>
+</fieldset>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.AGP_SubmitButton("删除") <text>|</text> @Html.AGPActionLink("回到列表", "Index")
+}

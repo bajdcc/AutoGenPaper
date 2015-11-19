@@ -1,0 +1,24 @@
+﻿@model AutoGenPaper.Common.Question
+
+@{
+    ViewBag.Title = "审阅";
+}
+
+<hgroup class="title">@ViewBag.Title</hgroup>
+
+<h3 id="show_result"></h3>
+<h3>审阅类型：@ViewBag.VerifyType</h3>
+@Ajax.ActionLink("审阅", "Edit", new { id = @ViewBag.Id }, new AjaxOptions()
+{
+    UpdateTargetId = "show_result",
+    HttpMethod = "Post",
+    InsertionMode = InsertionMode.Replace,
+}, new { id = "commit" })
+
+<table class="easyui-propertygrid" data-options="url:'@Url.Action("QuestionDetails_Verify", "AGP", new { id = ViewBag.Id })',showGroup:true,scrollbarSiz:0"></table>
+
+<script type="text/javascript">
+    function Commited() {
+        $("#commit").remove();
+    }
+</script>

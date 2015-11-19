@@ -1,0 +1,55 @@
+﻿@model AutoGenPaper.Common.SystemLog
+
+@{
+    ViewBag.Title = "日志";
+}
+
+<hgroup class="title">@ViewBag.Title</hgroup>
+
+<table id="log_t"></table>
+
+<script type="text/javascript">
+    $(function () {
+        $('#log_t').datagrid({
+            title: '@ViewBag.Title',
+            iconCls: 'easyui-icon-save',
+            nowrap: true,
+            autoRowHeight: false,
+            striped: true,
+            fitColumns: true,
+            collapsible: true,
+            url: '@Url.Action("Log", "AGP")',
+            sortName: 'id',
+            sortOrder: 'asc',
+            remoteSort: false,
+            idField: 'id',
+            frozenColumns: [[
+                { field: 'check', checkbox: true },
+                { title: '编号', field: 'id', width: 80, sortable: true }
+            ]],
+            columns: [[
+                { field: 'time', width: 80, title: '@Html.DisplayNameFor(m => m.Time)' },
+                { field: 'user', width: 80, title: '@Html.DisplayNameFor(m => m.User)' },
+                { field: 'level', width: 50, title: '@Html.DisplayNameFor(m => m.Level)' },
+                { field: 'event', width: 50, title: '@Html.DisplayNameFor(m => m.Event)' },
+                { field: 'object', width: 50, title: '@Html.DisplayNameFor(m => m.Object)' },
+                { field: 'text', width: 150, title: '@Html.DisplayNameFor(m => m.Text)' },
+            ]],
+            pagination: true,
+            rows: 10,
+            rownumbers: true,            
+        });
+        var p = $('#log_t').datagrid('getPager');
+        $(p).pagination({
+            onBeforeRefresh: function () {
+                //alert('before refresh');
+            }
+        });
+        @if (Request.IsAjaxRequest())
+        {
+            <text>setTimeout(function () { $('#log_t').reload() }, 300);</text>
+        }
+    });
+</script>
+
+

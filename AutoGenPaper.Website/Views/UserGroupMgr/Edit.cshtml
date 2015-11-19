@@ -1,0 +1,52 @@
+﻿@model AutoGenPaper.Common.UserGroup
+@using BootstrapSupport
+
+@{
+    ViewBag.Title = "编辑用户组";
+}
+
+<hgroup class="title">@ViewBag.Title</hgroup>
+
+@using (Html.BeginForm(null, null, null, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("_alerts")
+    @Html.Partial("_validationSummary")
+
+    @Html.HiddenFor(m => m.GroupId)
+
+    @Html.BeginControlGroupFor(model => model.Info.Name)
+    @Html.LabelFor(m => m.Info.Name, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.Info.Name, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.Info.Name, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroupFor(model => model.Info.Description)
+    @Html.LabelFor(m => m.Info.Description, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.Info.Description, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.Info.Description, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroupFor(model => model.Items)
+    @Html.LabelFor(m => m.Items, new { @class = "control-label" })
+    <div class="controls">
+        @Html.ListBoxFor(m => m.Items, ViewData["Member"] as IEnumerable<SelectListItem>, new { @class = "from-control", multiple = "multiple" })
+        @Html.ValidationMessageFor(m => m.Items, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroup()
+    <div class="controls">
+        @Html.AGP_SubmitButton("提交")
+    </div>
+    @Html.EndControlGroup()
+}
+
+
+<div>
+    @Html.AGPActionLink("返回", "Index")
+</div>

@@ -1,0 +1,20 @@
+﻿@model AutoGenPaper.Common.UserGroup
+
+@{
+    ViewBag.Title = "查看";
+}
+
+<hgroup class="title">@ViewBag.Title</hgroup>
+
+@Html.LabelFor(m => m.Info.Name)
+@Html.DisplayFor(m => m.Info.Name)
+@Html.LabelFor(m => m.Info.Description)
+@Html.DisplayFor(m => m.Info.Description)
+
+<h4>成员</h4>
+@Html.ListBoxFor(m => m.Items, ViewData["Member"] as IEnumerable<SelectListItem>);
+
+<p>
+    @Html.AGPActionLink("编辑", "Edit", new { id=Model.GroupId }) |
+    @Html.AGPActionLink("返回", "Index")
+</p>

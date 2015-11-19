@@ -1,0 +1,54 @@
+﻿@model AutoGenPaper.Common.Question
+
+@{
+    ViewBag.Title = "删除";
+}
+
+<hgroup class="title">@ViewBag.Title</hgroup>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Question</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Option)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Option)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Answer)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Answer)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Points)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Points)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Difficulty)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Difficulty)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Label)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Label)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.AGPActionLink("返回", "Index")
+    </p>
+}

@@ -1,0 +1,13 @@
+﻿@model AutoGenPaper.Common.Question
+
+@{
+    ViewBag.Title = "试题信息";
+}
+
+<hgroup class="title">@ViewBag.Title</hgroup>
+
+<table class="easyui-propertygrid" data-options="url:'@Url.Action("QuestionDetails", "AGP", new { id = ViewBag.Id })',showGroup:true,scrollbarSiz:0"></table>
+<p>
+    @Html.AGPActionLink("编辑", "Edit", new { id = ViewBag.Id }) |
+    @Html.AGPActionLink("返回", "Index")
+</p>

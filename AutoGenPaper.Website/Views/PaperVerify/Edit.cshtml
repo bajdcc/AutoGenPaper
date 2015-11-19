@@ -1,0 +1,25 @@
+﻿@model AutoGenPaper.Common.Paper
+
+@{
+    ViewBag.Title = "审阅";
+}
+
+<hgroup class="title">@ViewBag.Title</hgroup>
+
+<h3 id="show_result"></h3>
+<h3>审阅类型：@ViewBag.VerifyType</h3>
+@Ajax.ActionLink("审阅", "Edit", new { id = @ViewBag.Id }, new AjaxOptions()
+{
+    UpdateTargetId = "show_result",
+    HttpMethod = "Post",
+    InsertionMode = InsertionMode.Replace,
+    OnSuccess = "Commited"
+}, new { id = "commit" })
+
+@Html.AGP_DisplayForPaper((int)ViewBag.Id)
+
+<script type="text/javascript">
+    function Commited() {
+        $("#commit").remove();
+    }
+</script>

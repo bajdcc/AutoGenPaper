@@ -1,0 +1,64 @@
+﻿@model AutoGenPaper.Common.Question
+
+@{
+    ViewBag.Title = "试题审阅";
+}
+
+<hgroup class="title">@ViewBag.Title</hgroup>
+
+<table id="question_t"></table>
+<h1 id="mask">正在加载中……</h1>
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            $("#mask").remove();
+            $('#question_t').datagrid({
+                title: '@ViewBag.Title',
+                iconCls: 'easyui-icon-save',
+                nowrap: true,
+                autoRowHeight: false,
+                striped: true,
+                fitColumns: true,
+                collapsible: true,
+                url: '@Url.Action("QuestionAll_Verify", "AGP")',
+                sortName: 'id',
+                sortOrder: 'asc',
+                remoteSort: false,
+                idField: 'id',
+                frozenColumns: [[
+                    { field: 'check', checkbox: true },
+                    { title: '编号', field: 'id', width: 80, sortable: true }
+                ]],
+                columns: [[
+                    { field: 'type', title: '类型', width: 80 },
+                    { field: 'name', width: 200, title: '@Html.DisplayNameFor(m => m.Info.Name)' },
+                    { field: 'create', width: 120, title: '@Html.DisplayNameFor(m => m.Time.CreateTime)' },
+                    { field: 'edit', width: 120, title: '@Html.DisplayNameFor(m => m.Time.EditTime)' },
+                    { field: 'pts', title: '@Html.DisplayNameFor(m => m.Points)' },
+                    { field: 'diff', title: '@Html.DisplayNameFor(m => m.Difficulty)' },
+                    { field: 'label', title: '@Html.DisplayNameFor(m => m.Label)' },
+                    { field: 'opt', width: 400, title: '@Html.DisplayNameFor(m => m.Option)' },
+                    { field: 'ans', title: '@Html.DisplayNameFor(m => m.Answer)' },
+                    {
+                        field: 'op', title: '操作', width: 130, align: 'center',
+                        formatter: function (value, rec, index) {
+                            var idx = rec.id;
+                            var k = '<a href="javascript:void(0)" onclick="javascript:AGPActionCallForAsyncShowContent(\'';
+                            var e = k + '审阅试题#' + idx + '\',\'/QuestionVerify/Edit?id=' + idx + '\',false);">审阅</a>';
+                            return e;
+                        }
+                    }
+                ]],
+                pagination: true,
+                rownumbers: true,
+            });
+            var p = $('#question_t').datagrid('getPager');
+            $(p).pagination({
+                onBeforeRefresh: function () {
+                    //alert('before refresh');
+                },
+            });
+        }, 1000);
+    });
+</script>

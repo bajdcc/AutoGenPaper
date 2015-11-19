@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - 在线自动出卷系统</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Scripts.Render("~/Js")
+    @Styles.Render("~/Css")
+    @Styles.Render("~/Css.ui")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body class="easyui-layout" style="visibility: hidden;">
+    <div data-options="region:'north'" style="height: 40px;">
+        @Html.Partial("_TopNav")
+    </div>
+    <div data-options="region:'south'" style="height: 40px;">
+        <center><h6>&copy; @DateTime.Now.Year - 在线自动出卷系统</h6></center>
+    </div>
+    <div data-options="region:'west',split:true" title="导航" style="width: 15%;">
+        @Html.Partial("_Navigator")
+    </div>
+    <div data-options="region:'center'" title="窗口">
+        <div id="async_hidden" style="display: none;">
+            @RenderSection("featured", false)
+            @RenderBody()
+        </div>
+        <div class="easyui-tabs" id="tabs">
+        </div>
+    </div>
+    <div id="tabsMenu" class="easyui-menu" style="width:120px;">
+        <div name="Close">关闭当前窗口</div>
+        <div name="Other">关闭其他窗口</div>
+        <div name="All">关闭所有窗口</div>
+    </div>
+    <div id="async_result" style="visibility:hidden" />
+    @Html.Partial("_Script")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,51 @@
+﻿@model AutoGenPaper.Common.LoginModel
+@using AutoGenPaper.Mvc
+@using BootstrapSupport
+
+@{
+    ViewBag.Title = "登录";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<section id="loginForm">
+<h2>使用本地帐户登录。</h2>
+@using (Html.BeginForm(null, null, new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" } ))
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("_alerts")
+    @Html.Partial("_validationSummary")
+    
+    @Html.BeginControlGroupFor(model => model.UserName)
+    @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.UserName, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroupFor(model => model.Password)
+    @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+    <div class="controls">
+        @Html.PasswordFor(m => m.Password, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.Password, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroupFor(model => model.RememberMe)
+    @Html.LabelFor(m => m.RememberMe, new { @class = "control-label" })
+    <div class="controls">
+        @Html.CheckBoxFor(m => m.RememberMe)
+    </div>
+    @Html.EndControlGroup()
+    
+    @Html.BeginControlGroup()
+    <div class="controls">
+        @Html.AGP_SubmitButton("登录")
+    </div>
+    @Html.EndControlGroup()
+    @Html.AGPActionLink("注册", "Register") <text>如果你没有帐户。</text>
+}
+</section>

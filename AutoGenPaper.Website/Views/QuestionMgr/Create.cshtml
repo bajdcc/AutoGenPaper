@@ -1,0 +1,98 @@
+﻿@model AutoGenPaper.Common.QuestionProxyModel
+@using BootstrapSupport
+
+@{
+    ViewBag.Title = "新建";
+}
+
+<hgroup class="title">@ViewBag.Title</hgroup>
+
+@using (Html.BeginForm(null, null, null, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("_alerts")
+    @Html.Partial("_validationSummary")
+
+    @Html.BeginControlGroupFor(model => model.Name)
+    @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.Name, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.Name, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroupFor(model => model.Description)
+    @Html.LabelFor(m => m.Description, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.Description, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.Description, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroupFor(model => model.TypeId)
+    @Html.LabelFor(m => m.TypeId, new { @class = "control-label" })
+    <div class="controls">
+        @Html.DropDownListFor(m => m.TypeId, ViewData["Type"] as IEnumerable<SelectListItem>, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.TypeId, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+    
+    @Html.BeginControlGroupFor(model => model.CatalogId)
+    @Html.LabelFor(m => m.CatalogId, new { @class = "control-label" })
+    <div class="controls">
+        @Html.DropDownListFor(m => m.CatalogId, ViewData["Catalog"] as IEnumerable<SelectListItem>, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.CatalogId, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroupFor(model => model.Option)
+    @Html.LabelFor(m => m.Option, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.Option, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.Option, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroupFor(model => model.Answer)
+    @Html.LabelFor(m => m.Answer, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.Answer, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.Answer, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroupFor(model => model.Label)
+    @Html.LabelFor(m => m.Label, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.Label, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.Label, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroupFor(model => model.Points)
+    @Html.LabelFor(m => m.Points, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.Points, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.Points, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroupFor(model => model.Difficulty)
+    @Html.LabelFor(m => m.Difficulty, new { @class = "control-label" })
+    <div class="controls">
+        @Html.DropDownListFor(m => m.Difficulty, ViewData["Difficulty"] as IEnumerable<SelectListItem>, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Difficulty, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroup()
+    <div class="controls">
+        @Html.AGP_SubmitButton("新建")
+    </div>
+    @Html.EndControlGroup()
+}
+
+<div>
+    @Html.AGPActionLink("返回", "Index")
+</div>
+

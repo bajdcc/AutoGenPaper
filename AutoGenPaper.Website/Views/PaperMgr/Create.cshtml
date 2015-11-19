@@ -1,0 +1,174 @@
+﻿@model AutoGenPaper.Common.AGPGenPaperStrategiesModel
+@using BootstrapSupport
+
+@{
+    ViewBag.Title = "出卷选项";
+}
+
+<hgroup class="title">@ViewBag.Title</hgroup>
+
+@using (Html.BeginForm(null, null, null, FormMethod.Post, new { @class = "form-horizontal" } ))
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("_alerts")
+    @Html.Partial("_validationSummary")
+
+    @Html.BeginControlGroupFor(model => model.Name)
+    @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.Name, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.Name, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroupFor(model => model.CourseId)
+    @Html.LabelFor(m => m.CourseId, new { @class = "control-label" })
+    <div class="controls">
+        @Html.DropDownListFor(m => m.CourseId, ViewData["DefaultSelection"] as IEnumerable<SelectListItem>, new { @class = "form-control" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroupFor(model => model.CatalogList)
+    @Html.LabelFor(m => m.CatalogList, new { @class = "control-label" })
+    <div class="controls">
+        @Html.ListBoxFor(m => m.CatalogList, ViewData["DefaultSelection"] as IEnumerable<SelectListItem>, new { @class = "form-control", multiple = "multiple" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroupFor(model => model.DifficultyType)
+    @Html.LabelFor(m => m.DifficultyType, new { @class = "control-label" })
+    <div class="controls">
+        @Html.DropDownListFor(m => m.DifficultyType, ViewData["Difficulty"] as IEnumerable<SelectListItem>, new { @class = "form-control" })
+    </div>
+    @Html.EndControlGroup()
+
+    <!--单选-->
+    @Html.BeginControlGroupFor(model => model.SingleSelectCount)
+    @Html.LabelFor(m => m.SingleSelectCount, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.SingleSelectCount, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.SingleSelectCount, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroupFor(model => model.SingleSelectPoint)
+    @Html.LabelFor(m => m.SingleSelectPoint, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.SingleSelectPoint, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.SingleSelectPoint, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+    
+    <!--多选-->
+    @Html.BeginControlGroupFor(model => model.MultiSelectCount)
+    @Html.LabelFor(m => m.MultiSelectCount, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.MultiSelectCount, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.MultiSelectCount, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroupFor(model => model.MultiSelectPoint)
+    @Html.LabelFor(m => m.MultiSelectPoint, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.MultiSelectPoint, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.MultiSelectPoint, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    <!--判断-->
+    @Html.BeginControlGroupFor(model => model.CheckCount)
+    @Html.LabelFor(m => m.CheckCount, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.CheckCount, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.CheckCount, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroupFor(model => model.CheckPoint)
+    @Html.LabelFor(m => m.CheckPoint, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.CheckPoint, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.CheckPoint, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+    
+    <!--填空-->
+    @Html.BeginControlGroupFor(model => model.BlankCount)
+    @Html.LabelFor(m => m.BlankCount, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.BlankCount, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.BlankCount, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroupFor(model => model.BlankPoint)
+    @Html.LabelFor(m => m.BlankPoint, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.BlankPoint, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.BlankPoint, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+    
+    <!--简答-->
+    @Html.BeginControlGroupFor(model => model.ShortAnswerCount)
+    @Html.LabelFor(m => m.ShortAnswerCount, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.ShortAnswerCount, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.ShortAnswerCount, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+
+    @Html.BeginControlGroupFor(model => model.ShortAnswerPoint)
+    @Html.LabelFor(m => m.ShortAnswerPoint, new { @class = "control-label" })
+    <div class="controls">
+        @Html.TextBoxFor(m => m.ShortAnswerPoint, new { @class = "input-xlarge" })
+        @Html.ValidationMessageFor(m => m.ShortAnswerPoint, null, new { @class = "help-inline" })
+    </div>
+    @Html.EndControlGroup()
+    
+    @Html.BeginControlGroup()
+    <div class="controls">
+        @Html.AGP_SubmitButton("生成")
+    </div>
+    @Html.EndControlGroup()
+}
+
+<script type="text/javascript">
+    $(function () {
+        if ($("#CourseId").children().length == 0) {
+            GetCourse();
+        }
+        $("#CourseId").change(function () {
+            GetCatalog();
+        });
+    });
+    function GetCourse() {
+        $("#CourseId").empty();
+        $("<option></option>").val("0").text("请选择").appendTo($("#CourseId"));
+        $.ajax({
+            url: "/AGP/GetCourseList",
+            type: "POST",
+            dataType: "json",
+            success: function (data) {
+                $.each(data, function (i, item) {
+                    $("<option></option>").val(item["id"]).text(item["val"]).appendTo($("#CourseId"));
+                })
+            }
+        });
+    }
+    function GetCatalog() {
+        $("#CatalogList").empty();
+        $.ajax({
+            url: "/AGP/GetCataloglist",
+            type: "POST",
+            dataType: "json",
+            data: { id: $("#CourseId").val() },
+            success: function (data) {
+                $.each(data, function (i, item) {
+                    $("<option></option>").val(item["id"]).text(item["val"]).appendTo($("#CatalogList"));
+                });
+            }
+        });
+    }
+</script>

@@ -1,0 +1,134 @@
+﻿<script type="text/javascript">
+
+    function AGPActionCallForAsyncShowContent(text, url, autoclose) {
+        if (autoclose) {
+            AGPAutoclose();
+        }
+        AsyncShowContent(text, url);
+    }
+
+    //展示窗口
+    function AsyncShowContent(text, url) {
+        if (url == "") return;
+        if ($("#tabs").tabs('exists', text)) {
+            $('#tabs').tabs('select', text);
+        } else {
+            $('#tabs').tabs('add', {
+                title: text,
+                closable: true,
+                href: url,
+                tools: [{
+                    iconCls: 'easyui-icon-mini-refresh',
+                    handler: function () {
+                        $('#tabs').tabs('update', {
+                            tab: $('#tabs').tabs('getSelected'),
+                            options: {
+                                href: url,
+                            }
+                        });
+                    }
+                }]
+            });
+        }
+    }
+
+    $(document).ready(function () {
+        $('#tabs').tabs('add', {
+            title: "@ViewBag.Title",
+            closable: true,
+            content: $("#async_hidden").html(),
+            tools: [{
+                iconCls: 'easyui-icon-mini-refresh',
+                handler: function () {
+                    $('#tabs').tabs('update', {
+                        tab: $('#tabs').tabs('getSelected'),
+                        options: {
+                            href: "@Request.RawUrl",
+                        }
+                    });
+                }
+            }]
+        });
+        $("#async_hidden").remove();
+        document.body.style.visibility = "visible";
+
+        $('[data-toggle=tooltip]').mouseover(function () {
+            $(this).tooltip('show');
+        })
+    });
+
+    //tab+treeview
+
+    $(function () {
+        //绑定tabs的右键菜单
+        $("#tabs").tabs({
+            onContextMenu: function (e, title) {
+                e.preventDefault();
+                $('#tabsMenu').menu('show', {
+                    left: e.pageX,
+                    top: e.pageY
+                }).data("tabTitle", title);
+            }
+        });
+
+        //实例化menu的onClick事件
+        $("#tabsMenu").menu({
+            onClick: function (item) {
+                CloseTab(this, item.name);
+            }
+        });
+
+        //几个关闭事件的实现
+        function CloseTab(menu, type) {
+            var curTabTitle = $(menu).data("tabTitle");
+            var tabs = $("#tabs");
+
+            if (type === "Close") {
+                tabs.tabs("close", curTabTitle);
+                return;
+            }
+
+            var allTabs = tabs.tabs("tabs");
+            var closeTabsTitle = [];
+
+            $.each(allTabs, function () {
+                var opt = $(this).panel("options");
+                if (opt.closable && opt.title != curTabTitle && type === "Other") {
+                    closeTabsTitle.push(opt.title);
+                } else if (opt.closable && type === "All") {
+                    closeTabsTitle.push(opt.title);
+                }
+            });
+
+            for (var i = 0; i < closeTabsTitle.length; i++) {
+                tabs.tabs("close", closeTabsTitle[i]);
+            }
+        }
+    });
+
+    function AGPAutoclose() {
+        $('#tabs').tabs("close", $('#tabs').tabs('getSelected').panel('options').title);
+    }
+
+    var index = 1;
+    function async_success() {
+        AGPAutoclose();
+        $('#tabs').tabs('add', {
+            title: "提交结果 "+index,
+            closable: true,
+            content: $("#async_result").html(),
+        });
+        $("#async_result").empty();
+        index++;
+    }
+
+    function async_fail() {
+        $.messager.show({
+            title: $('#tabs').tabs('getSelected').panel('options').title,
+            msg: '提交失败',
+            timeout: 4000,
+            showType: 'slide'
+        });
+        $("#async_result").empty();
+    }
+</script>

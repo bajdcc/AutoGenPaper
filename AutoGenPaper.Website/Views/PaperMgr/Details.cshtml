@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "试卷信息";
+}
+
+<hgroup class="title">@ViewBag.Title</hgroup>
+
+@Html.ActionLink("下载本试卷", "WordDl", "AGP", new { id = ViewBag.Id }, null)
+
+@Html.AGP_DisplayForPaper((int)ViewBag.Id)
+
+<p>
+    @Html.AGPActionLink("编辑", "Edit", new { id = ViewBag.Id }) |
+    @Html.AGPActionLink("删除", "Delete", new { id = ViewBag.Id }) |
+    @Html.AGPActionLink("返回", "Index")
+</p>

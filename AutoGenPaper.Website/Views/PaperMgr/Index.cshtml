@@ -1,0 +1,81 @@
+﻿@model AutoGenPaper.Common.Paper
+
+@{
+    ViewBag.Title = "试卷管理";
+}
+
+<hgroup class="title">@ViewBag.Title</hgroup>
+
+<table id="paper_t"></table>
+<h1 id="mask">正在加载中……</h1>
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            $("#mask").remove();
+            $('#paper_t').datagrid({
+                title: '@ViewBag.Title',
+                iconCls: 'easyui-icon-save',
+                nowrap: true,
+                autoRowHeight: false,
+                striped: true,
+                fitColumns: true,
+                collapsible: true,
+                url: '@Url.Action("PaperAll", "AGP")',
+                sortName: 'id',
+                sortOrder: 'asc',
+                remoteSort: false,
+                idField: 'id',
+                frozenColumns: [[
+                    { field: 'check', checkbox: true },
+                    { title: '编号', field: 'id', width: 80, sortable: true }
+                ]],
+                columns: [[
+                    { field: 'name', width: 200, title: '@Html.DisplayNameFor(m => m.Info.Name)' },
+                    { field: 'create', width: 120, title: '@Html.DisplayNameFor(m => m.Time.CreateTime)' },
+                    { field: 'edit', width: 120, title: '@Html.DisplayNameFor(m => m.Time.EditTime)' },
+                    { field: 'pts', title: '@Html.DisplayNameFor(m => m.Points)' },
+                    { field: 'diff', title: '@Html.DisplayNameFor(m => m.Difficulty)' },
+                    { field: 'label', title: '@Html.DisplayNameFor(m => m.Label)' },
+                    { field: 'owner', width: 80, title: '@Html.DisplayNameFor(m => m.Owner)' },
+                    { field: 'verifier', width: 80, title: '@Html.DisplayNameFor(m => m.Verifier)' },
+                    {
+                        field: 'op', title: '操作', width: 130, align: 'center',
+                        formatter: function (value, rec, index) {
+                            var idx = rec.id;
+                            var k = '<a href="javascript:void(0)" onclick="javascript:AGPActionCallForAsyncShowContent(\'';
+                            var s = k + '查看试卷#' + idx + '\',\'/PaperMgr/Details?id=' + idx + '\',false);">查看</a>';
+                            var e = k + '编辑试卷#' + idx + '\',\'/PaperMgr/Edit?id=' + idx + '\',false);">编辑</a>';
+                            var d = k + '删除试卷#' + idx + '\',\'/PaperMgr/Delete?id=' + idx + '\',false);">删除</a>';
+                            return s + "&emsp;" + e + "&emsp;" + d;
+                        }
+                    }
+                ]],
+                pagination: true,
+                rows: 10,
+                rownumbers: true,
+                toolbar: [{
+                    id: 'btnadd',
+                    text: '添加',
+                    iconCls: 'easyui-icon-add',
+                    handler: function () {
+                        AGPActionCallForAsyncShowContent("添加试卷", "/PaperMgr/Create", false);
+                    }
+                }, {
+                    id: 'btndel',
+                    text: '删除',
+                    iconCls: 'easyui-icon-remove',
+                    handler: function () {
+                        alert('del')
+                    }
+                }]
+            });
+            var p = $('#paper_t').datagrid('getPager');
+            $(p).pagination({
+                onBeforeRefresh: function () {
+                    //alert('before refresh');
+                }
+            });
+        }, 1000);
+    });
+</script>

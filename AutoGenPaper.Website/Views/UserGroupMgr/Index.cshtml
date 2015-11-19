@@ -1,0 +1,42 @@
+﻿@model IEnumerable<AutoGenPaper.Common.UserGroup>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<hgroup class="title">@ViewBag.Title</hgroup>
+
+<p>
+    @Html.AGPActionLink("新建", "Create")
+</p>
+
+
+<table>
+    <tr>
+        <th>
+            名称
+        </th>
+        <th>
+            描述
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info.Description)
+            </td>
+            <td>
+                @Html.AGPActionLink("编辑", "Edit", new { id = item.GroupId }) |
+                @Html.AGPActionLink("查看", "Details", new { id = item.GroupId }) |
+                @Html.AGPActionLink("删除", "Delete", new { id = item.GroupId })
+            </td>
+        </tr>
+    }
+
+</table>
