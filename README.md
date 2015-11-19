@@ -1,5 +1,5 @@
 
-# AutoGenPaper - An online system generating paper automaticly (*Java*)
+# An online system generating paper automaticly
 ===========================
 
 **AutoGenPaper** is an web application based on MVC4 framework. Developed by ***bajdcc***.
